@@ -1,4 +1,6 @@
-default: kernel-compile kernel-install environment-run
+default: kernel-compile kernel-install run
+reset: kernel-clean environment-reset
+clean: environment-clean
 
 kernel-compile:
 	$(MAKE) -j `nproc` -C kernel
@@ -10,13 +12,22 @@ kernel-install:
 	$(MAKE) -C kernel install INSTALL_PATH=`pwd`/mount/boot/
 	$(MAKE) -C kernel modules_install INSTALL_MOD_PATH=`pwd`/mount/system/
 	guestunmount mount/
-	@sleep 3
+	@sleep 5
+
+run:
+	$(MAKE) -C environment
 
 environment-clean:
 	$(MAKE) -C environment clean
 
-environment-run:
-	$(MAKE) -C environment
+environment-reset:
+	$(MAKE) -C environment reset
+
+set-backup:
+	$(MAKE) -C environment set-backup
+
+kernel-clean:
+	$(MAKE) -C kernel clean
 
 bootstrap:
 	mv environment/ temp/
