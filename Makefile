@@ -1,4 +1,5 @@
 default: kernel-compile kernel-install run
+test: kernel-compile kernel-install run-test
 reset: kernel-clean environment-reset
 clean: environment-clean
 
@@ -15,7 +16,10 @@ kernel-install:
 	@sleep 5
 
 run:
-	$(MAKE) -C environment
+	$(MAKE) -C environment run
+
+run-test:
+	@$(MAKE) -sC environment run REPTILIAN_QEMU_OPTIONS="-nographic" REPTILIAN_SSH_UPLOAD_SOURCE="`pwd`/test/" REPTILIAN_SSH_UPLOAD_TARGET="/tmp/test/" REPTILIAN_SSH_COMMAND="make -C /tmp/test/ test"
 
 environment-clean:
 	$(MAKE) -C environment clean
