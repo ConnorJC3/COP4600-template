@@ -21,11 +21,19 @@ This repository contains the necessary infrastructure to develop for the reptili
 7. Update the submodule using `git submodule sync` and `git submodule update --init --recursive --remote`
 8. Run `make reset`
 9. Obtain the file `/usr/rep/build/config/reptilian-x86_64_defconfig` from the reptilian VM (you can run the VM with `make run`) and place it in `kernel/` named `.config`
+10. (Recommended) Create `/home/reptilian/.ssh/authorized_keys` and place your public key in it
+11. (Recommended) Change the `sudo` group (which user `reptilian` is a part of) to have password-less sudo
+
+## Testing
+
+Automatic testing of the kernel can be setup using the `test/` directory. When using `make test` or `make run-test` this directory will be uploaded to the VM and `make test` will be run inside (see "Usage" section below for more information).
 
 ## Usage
 
 `make` - Compile the kernel and run a VM with the compiled kernel  
 `make run` - Run the VM (using the existing kernel)  
+`make test` - Compile and install the kernel and run the test directory on the VM  
+`make run-test` - Run the test directory on the VM (using the existing kernel)  
 `make set-backup` - Set the backup state for the VM (Useful to preload the VM with configs/tools)  
 `make clean` - Reset the VM state to the backup state  
 `make reset` - Reset the VM backup state to the original state and kernel compile cache
