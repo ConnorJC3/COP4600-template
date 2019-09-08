@@ -9,6 +9,7 @@ This repository contains the necessary infrastructure to develop for the reptili
 - libguestfs
 - tar
 - ssh
+- inotifywait
 
 ## Setup
 
